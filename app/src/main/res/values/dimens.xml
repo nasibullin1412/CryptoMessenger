@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="bottom_navigation_height">60dp</dimen>
+    <dimen name="login_welcome_text_view_text_m_t">145dp</dimen>
+    <dimen name="login_welcome_text_view_text_size">30sp</dimen>
+    <dimen name="login_welcome_image_width">152dp</dimen>
+    <dimen name="login_welcome_image_height">152dp</dimen>
+    <dimen name="login_welcome_margin_top">60dp</dimen>
+    <dimen name="login_welcome_username_margin_top">25dp</dimen>
+    <dimen name="login_welcome_password_margin_top">20dp</dimen>
+</resources>
