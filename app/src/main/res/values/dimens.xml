@@ -33,9 +33,11 @@
     <dimen name="tv_error_mess_margin_top">5dp</dimen>
     <dimen name="tv_repeat_margin_top">10dp</dimen>
     <dimen name="tv_repeat_text_size">16sp</dimen>
-    <dimen name="mes_to_item_margin_top">22dp</dimen>
+    <dimen name="mes_to_item_margin_top">11dp</dimen>
+    <dimen name="mes_to_item_margin_bottom">11dp</dimen>
     <dimen name="cv_message_margin_start">9dp</dimen>
     <dimen name="mes_to_cv_padding_top">10dp</dimen>
     <dimen name="mes_to_cv_padding_left">16dp</dimen>
     <dimen name="tv_user_name_max_width">217dp</dimen>
+    <dimen name="tv_message_content_margin_top">16dp</dimen>
 </resources>

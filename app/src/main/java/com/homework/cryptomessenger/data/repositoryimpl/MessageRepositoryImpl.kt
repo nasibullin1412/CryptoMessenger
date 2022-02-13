@@ -2,6 +2,7 @@ package com.homework.cryptomessenger.data.repositoryimpl
 
 import com.homework.cryptomessenger.App
 import com.homework.cryptomessenger.data.network.ApiService
+import com.homework.cryptomessenger.data.network.NetworkConstants.PAGING_SORT_TYPE
 import com.homework.cryptomessenger.data.network.mappers.MessageResponseToEntity
 import com.homework.cryptomessenger.domain.entity.MessageListPageEntity
 import com.homework.cryptomessenger.domain.repository.MessageRepository
@@ -19,7 +20,7 @@ class MessageRepositoryImpl : BaseDataSource(), MessageRepository {
 
     override suspend fun getMessages(size: Int, page: Int): Flow<MessageListPageEntity> =
         flow {
-            val queryMap = mapOf("size" to size, "page" to page)
+            val queryMap = mapOf("size" to size.toString(), "page" to page.toString(), "sort" to PAGING_SORT_TYPE)
             val result = safeApiCall { apiService.getMessages(queryMap) }
             if (result.data != null) {
                 emit(messageResponseToEntity(result.data))

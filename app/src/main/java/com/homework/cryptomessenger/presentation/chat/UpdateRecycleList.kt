@@ -10,8 +10,9 @@ import kotlinx.coroutines.flow.flowOn
 class UpdateRecycleList {
     suspend operator fun invoke(
         oldList: List<ChatItem>,
-        newList: List<ChatItem>
+        newList: MutableList<ChatItem>
     ): Flow<List<ChatItem>> = flow {
+        newList.reverse()
         val result = newList + oldList
         result.forEachIndexed { idx, item -> item.id = idx.toLong() }
         emit(result)

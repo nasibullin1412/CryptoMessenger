@@ -12,7 +12,8 @@ class MessageFromViewHolder(
 
     fun bind(messageItem: ChatItem) {
         with(customMessageViewGroupBinding) {
-            tvMessageContentFrom.text = messageItem.text
+            tvUserName.text = messageItem.username
+            tvMessageContent.text = messageItem.text
             cvMessageFrom.setBackgroundResource(R.drawable.bg_custom_message)
         }
     }

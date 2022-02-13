@@ -28,7 +28,7 @@ class ChatViewModel : ViewModel() {
 
     fun updateRecycleList(oldList: List<ChatItem>, newList: List<ChatItem>) =
         viewModelScope.launch {
-            updateRecycle(oldList = oldList, newList = newList).catch { error ->
+            updateRecycle(oldList = oldList, newList = (newList as MutableList<ChatItem>)).catch { error ->
                 _chatViewState.value = ChatViewState.ErrorViewState(error)
             }.collect {
                 _chatViewState.value = ChatViewState.SuccessUpdateList(it)

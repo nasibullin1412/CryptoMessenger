@@ -1,7 +1,8 @@
 package com.homework.cryptomessenger.data.repositoryimpl
 
+import android.util.Base64
 import com.homework.cryptomessenger.App
-import com.homework.cryptomessenger.data.crypto.CryptoManager
+import com.homework.cryptomessenger.data.crypto.KeyExchangeApi
 import com.homework.cryptomessenger.data.network.mappers.AuthEntityToBody
 import com.homework.cryptomessenger.data.prefs.SharedPrefs
 import com.homework.cryptomessenger.data.prefs.SharedPrefs.CURR_USER_ID
@@ -20,7 +21,7 @@ class AuthRepositoryImpl : BaseDataSource(), AuthRepository {
 
     private val apiService = App.instance.apiService
     private val authEntityToBody: AuthEntityToBody = AuthEntityToBody()
-    private val cryptoManager: CryptoManager = CryptoManager()
+    private val keyExchangeApi: KeyExchangeApi = KeyExchangeApi()
 
     override suspend fun authUser(authEntity: AuthEntity): Flow<String> = flow {
         val result = safeApiCall { apiService.authUser(authEntityToBody(authEntity)) }
@@ -36,8 +37,11 @@ class AuthRepositoryImpl : BaseDataSource(), AuthRepository {
     }.flowOn(Dispatchers.IO)
 
     override suspend fun sessionKeyEstablishment(token: String): Flow<Boolean> = flow {
-        val sessionKey = cryptoManager(token)
-        SharedPrefs.setValueToSharedPreference(SESSION_KEY, sessionKey.toString())
+        val sessionKey = keyExchangeApi(token)
+        SharedPrefs.setValueToSharedPreference(
+            SESSION_KEY,
+            Base64.encodeToString(sessionKey, Base64.DEFAULT)
+        )
         emit(true)
     }.flowOn(Dispatchers.IO)
 }

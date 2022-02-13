@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/mes_to_item_margin_top">
+    android:layout_marginTop="@dimen/mes_to_item_margin_top"
+    android:layout_marginBottom="@dimen/mes_to_item_margin_bottom"
+    >
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvMessageFrom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/cv_message_margin_start"
+        android:layout_marginStart="@dimen/cv_message_margin_start"
         app:cardBackgroundColor="@color/send_box_color"
         app:contentPaddingBottom="@dimen/mes_to_cv_padding_top"
         app:contentPaddingLeft="@dimen/mes_to_cv_padding_left"
@@ -19,11 +20,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/tvMessageContentFrom"
-            style="@style/MessageTextStyle"
-            android:textAlignment="textStart"
-            android:textSize="16sp"
-            tools:text="lol" />
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/llMessage"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvUserName"
+                style="@style/MessageTextStyle"
+                android:textAlignment="textStart"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tvMessageContent"
+                style="@style/MessageTextStyle"
+                android:layout_marginTop="@dimen/tv_message_content_margin_top"
+                android:textAlignment="textStart"
+                android:textSize="16sp" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.cardview.widget.CardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

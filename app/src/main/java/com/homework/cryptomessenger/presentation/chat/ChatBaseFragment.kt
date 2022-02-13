@@ -39,7 +39,7 @@ abstract class ChatBaseFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initViews()
         initListeners()
-        viewModel.doGetMessages(page = FIRST_PAGE, size = SIZE)
+        viewModel.doGetMessages(page = FIRST_PAGE, size = PagingScrollListener.PAGE_SIZE)
         initEditText()
     }
 
@@ -90,15 +90,7 @@ abstract class ChatBaseFragment : Fragment() {
             layoutManager = currLayoutManager
             scrollListener = object : PagingScrollListener(currLayoutManager) {
                 override fun onLoadMore(top: Boolean): Boolean {
-                    /* val numberOfMess =
-                         chatAdapter.currentList.firstWithInstance<MessageItem>()?.messageId ?: 0
-                     internalStore.accept(
-                         Event.Ui.LoadNextPage(
-                             streamItem = currentStream,
-                             topicItem = currentTopic.copy(numberOfMess = numberOfMess),
-                             currId = currId
-                         )
-                     )*/
+                    viewModel.doGetMessages(page = numberOfPage, size = PAGE_SIZE)
                     return true
                 }
             }
@@ -133,7 +125,7 @@ abstract class ChatBaseFragment : Fragment() {
     }
 
     companion object {
-        const val FIRST_PAGE = 1
+        const val FIRST_PAGE = 0
         const val SIZE = 1
     }
 }

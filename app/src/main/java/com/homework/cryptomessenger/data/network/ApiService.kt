@@ -7,7 +7,10 @@ import com.homework.cryptomessenger.data.network.dto.KeyDto
 import com.homework.cryptomessenger.data.network.dto.MessageListResponseDto
 import retrofit2.Response
 import retrofit2.Retrofit
-import retrofit2.http.*
+import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.POST
+import retrofit2.http.QueryMap
 
 interface ApiService {
 
@@ -16,13 +19,12 @@ interface ApiService {
 
     @POST("crypto/handshake")
     suspend fun sendPublicKey(
-        //@Header("Authorization") djangoToken: String?,
         @Body cryptoKey: KeyDto
     ): Response<KeyDto>
 
     @GET("message")
     suspend fun getMessages(
-        @QueryMap queryMap: Map<String, Int>
+        @QueryMap queryMap: Map<String, String>
     ): Response<MessageListResponseDto>
 
     companion object {
