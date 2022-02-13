@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">CryptoMessenger</string>
+    <string name="login_top_text">Enter</string>
+    <string name="hint_login_username">Username</string>
+    <string name="hint_login_password">Password</string>
+    <string name="btn_string">LogIn</string>
+    <string name="write_hint">Write...</string>
+    <string name="error_message">An error occurred while loading data. Check the connection …</string>
+    <string name="repeat">Repeat</string>
 </resources>

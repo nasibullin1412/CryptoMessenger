@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/clMain"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/custom_back">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/appbar_margin_bottom"
+        android:clipToPadding="false"
+        android:elevation="@dimen/appbar_elevation"
+        android:outlineProvider="paddedBounds"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/chat_toolbar_height"
+            android:background="@color/custom_toolbar_color"
+            android:contentInsetStart="@dimen/toolbar_content_margin"
+            app:contentInsetEnd="@dimen/toolbar_content_margin">
+
+            <ImageView
+                android:id="@+id/imgBack"
+                android:layout_width="@dimen/img_size"
+                android:layout_height="@dimen/img_size"
+                android:layout_marginStart="4dp"
+                android:src="@drawable/ic_back"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/tv_stream_name_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/stream_name_margin_start"
+                android:fontFamily="@font/roboto_medium"
+                android:text="@string/app_name"
+                android:textColor="@color/white"
+                android:textSize="@dimen/stream_name_text_size" />
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <TextView
+        android:id="@+id/tvTopicName"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/topic_name_view_height"
+        android:background="@color/send_box_color"
+        android:fontFamily="@font/roboto_medium"
+        android:gravity="center"
+        android:textColor="@color/topic_name_color"
+        android:textSize="@dimen/topic_name_text_size"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/appBar"
+        tools:text="Topic: #testing" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="@dimen/progress_bar_size"
+        android:layout_height="@dimen/progress_bar_size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvMessage"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/chat_rv_margin_bottom"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@id/clSendBox"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTopicName"
+        app:layout_constraintVertical_bias="1" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clSendBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/send_box_color"
+        android:minHeight="@dimen/cl_send_box_min_height"
+        android:padding="@dimen/cl_send_padding"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <EditText
+            android:id="@+id/etMessage"
+            style="@style/MessageEditTextStyle"
+            android:layout_marginStart="@dimen/message_margin_start"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="@dimen/message_margin_end"
+            android:hint="@string/write_hint"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:minWidth="@dimen/message_min_width"
+            android:minHeight="@dimen/message_min_height"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imgSend"
+            android:layout_width="@dimen/send_img_width"
+            android:layout_height="@dimen/send_img_height"
+            android:layout_marginStart="@dimen/send_margin_start"
+            android:layout_marginBottom="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/etMessage"
+            tools:ignore="ContentDescription" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nsvErrorConnection"
+        style="@style/NestedScrollError"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBar">
+
+        <include
+            android:id="@+id/errorContent"
+            layout="@layout/error_content" />
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/mes_to_item_margin_top"
+    android:layout_marginBottom="@dimen/mes_to_item_margin_bottom"
+    >
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvMessageTo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/cv_message_margin_start"
+        app:cardBackgroundColor="@color/send_box_color"
+        app:contentPaddingBottom="@dimen/mes_to_cv_padding_top"
+        app:contentPaddingLeft="@dimen/mes_to_cv_padding_left"
+        app:contentPaddingRight="@dimen/mes_to_cv_padding_left"
+        app:contentPaddingTop="@dimen/mes_to_cv_padding_top"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tvMessageContentTo"
+            style="@style/MessageTextStyle"
+            android:textAlignment="textStart"
+            android:textSize="16sp"
+            tools:text="lol" />
+
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
