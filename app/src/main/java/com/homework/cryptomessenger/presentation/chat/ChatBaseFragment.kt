@@ -45,6 +45,10 @@ abstract class ChatBaseFragment : Fragment() {
 
     private fun initListeners() {
         viewModel.chatViewState.observe(viewLifecycleOwner, { changeChatViewState(it) })
+        binding.imgSend.setOnClickListener {
+            viewModel.sendMessage(binding.etMessage.text.toString())
+            binding.etMessage.setText("")
+        }
     }
 
     private fun changeChatViewState(viewState: ChatViewState) {
@@ -52,6 +56,7 @@ abstract class ChatBaseFragment : Fragment() {
             is ChatViewState.ErrorViewState -> {
                 binding.progressBar.visibility = View.GONE
                 showToast(viewState.throwable.message)
+                binding.nsvErrorConnection.visibility = View.VISIBLE
             }
             ChatViewState.ProgressViewState -> {
                 binding.progressBar.visibility = View.VISIBLE
@@ -65,6 +70,11 @@ abstract class ChatBaseFragment : Fragment() {
             }
             is ChatViewState.SuccessUpdateList -> {
                 updateMessage(viewState.newList)
+            }
+            ChatViewState.SuccessSendMessage -> {
+                scrollListener.numberOfPage = 1
+                chatAdapter.submitList(emptyList())
+                viewModel.doGetMessages(size = PagingScrollListener.PAGE_SIZE, page = FIRST_PAGE)
             }
         }
     }
@@ -105,15 +115,21 @@ abstract class ChatBaseFragment : Fragment() {
     }
 
     private fun initEditText() = with(binding) {
-        imgSend.background =
-            ResourcesCompat.getDrawable(resources, R.drawable.ic_vector, context?.theme)
+        imgSend.background = ResourcesCompat.getDrawable(
+            resources,
+            R.drawable.ic_vector,
+            context?.theme
+        )
         etMessage.run {
             addTextChangedListener {
-                binding.imgSend.background = ResourcesCompat.getDrawable(
-                    resources,
-                    selectIcon(text.toString()),
-                    context.theme
-                )
+                with(imgSend) {
+                    background = ResourcesCompat.getDrawable(
+                        resources,
+                        selectIcon(text.toString()),
+                        context.theme
+                    )
+                    isActivated = text.isEmpty().not()
+                }
             }
         }
     }
@@ -126,6 +142,5 @@ abstract class ChatBaseFragment : Fragment() {
 
     companion object {
         const val FIRST_PAGE = 0
-        const val SIZE = 1
     }
 }

@@ -1,4 +1,4 @@
-package com.homework.myapplication.domain.repository
+package com.homework.cryptomessenger.domain
 
 data class Resource<out T>(val status: Status, val data: T?, val message: String?) {
 

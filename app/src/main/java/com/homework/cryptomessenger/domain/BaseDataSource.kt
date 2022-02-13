@@ -1,4 +1,4 @@
-package com.homework.myapplication.domain.repository
+package com.homework.cryptomessenger.domain
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

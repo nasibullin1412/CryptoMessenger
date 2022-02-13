@@ -8,4 +8,3 @@ data class KeyDto(
     @SerialName("publicKey")
     val key: String
 )
-

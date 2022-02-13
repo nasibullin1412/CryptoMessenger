@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.homework.cryptomessenger.domain.usecase.GetMessagesUseCase
+import com.homework.cryptomessenger.domain.usecase.SendMessageUseCase
 import com.homework.cryptomessenger.presentation.chat.data.ChatItem
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
@@ -16,6 +17,7 @@ class ChatViewModel : ViewModel() {
 
     private val getMessagesUseCase: GetMessagesUseCase = GetMessagesUseCase()
     private val updateRecycle: UpdateRecycleList = UpdateRecycleList()
+    private val sendMessagesUseCase: SendMessageUseCase = SendMessageUseCase()
 
     fun doGetMessages(size: Int, page: Int) = viewModelScope.launch {
         _chatViewState.value = ChatViewState.ProgressViewState
@@ -28,10 +30,21 @@ class ChatViewModel : ViewModel() {
 
     fun updateRecycleList(oldList: List<ChatItem>, newList: List<ChatItem>) =
         viewModelScope.launch {
-            updateRecycle(oldList = oldList, newList = (newList as MutableList<ChatItem>)).catch { error ->
+            updateRecycle(
+                oldList = oldList,
+                newList = (newList as MutableList<ChatItem>)
+            ).catch { error ->
                 _chatViewState.value = ChatViewState.ErrorViewState(error)
             }.collect {
                 _chatViewState.value = ChatViewState.SuccessUpdateList(it)
             }
         }
+
+    fun sendMessage(text: String) = viewModelScope.launch {
+        sendMessagesUseCase(text).catch { error ->
+            _chatViewState.value = ChatViewState.ErrorViewState(error)
+        }.collect {
+            _chatViewState.value = ChatViewState.SuccessSendMessage
+        }
+    }
 }

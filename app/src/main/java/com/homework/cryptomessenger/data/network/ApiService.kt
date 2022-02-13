@@ -2,8 +2,10 @@ package com.homework.cryptomessenger.data.network
 
 import com.homework.cryptomessenger.data.network.NetworkConstants.BASE_URL
 import com.homework.cryptomessenger.data.network.body.AuthBody
+import com.homework.cryptomessenger.data.network.body.MessageBody
 import com.homework.cryptomessenger.data.network.dto.AuthDto
 import com.homework.cryptomessenger.data.network.dto.KeyDto
+import com.homework.cryptomessenger.data.network.dto.MessageDto
 import com.homework.cryptomessenger.data.network.dto.MessageListResponseDto
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -26,6 +28,11 @@ interface ApiService {
     suspend fun getMessages(
         @QueryMap queryMap: Map<String, String>
     ): Response<MessageListResponseDto>
+
+    @POST("message")
+    suspend fun sendMessage(
+        @Body messageDto: MessageBody
+    ): Response<MessageDto>
 
     companion object {
         fun create(): ApiService {
