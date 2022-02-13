@@ -1,6 +1,5 @@
 package com.homework.cryptomessenger.presentation.utils
 
-import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.homework.cryptomessenger.presentation.authorization.AuthFragment
 import com.homework.cryptomessenger.presentation.chat.ChatFragment

@@ -7,7 +7,7 @@ import com.homework.cryptomessenger.App
 import com.homework.cryptomessenger.data.network.ApiService
 import com.homework.cryptomessenger.data.network.dto.KeyDto
 
- class KeyExchange {
+class CryptoManager {
 
     private val apiService: ApiService = App.instance.apiService
 
@@ -51,7 +51,7 @@ import com.homework.cryptomessenger.data.network.dto.KeyDto
             publicKeyRaw,
             Base64.DEFAULT
         )
-        val result = apiService.sendPublicKey(jwtToken, cryptoKey = KeyDto(base64))
+        val result = apiService.sendPublicKey(cryptoKey = KeyDto(base64))
         with(result) {
             publicKeyRemote = body()?.key ?: throw IllegalArgumentException(message())
         }
