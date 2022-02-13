@@ -1,6 +1,7 @@
 package com.homework.cryptomessenger.presentation.chat
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,6 +26,8 @@ abstract class ChatBaseFragment : Fragment() {
     private lateinit var chatAdapter: ChatAdapter
     private lateinit var scrollListener: PagingScrollListener
     private val messageEntityToItem: MessageEntityToItem = MessageEntityToItem()
+    private var currLastId: Long = 0L
+    private var isFirst = true
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,6 +52,10 @@ abstract class ChatBaseFragment : Fragment() {
             viewModel.sendMessage(binding.etMessage.text.toString())
             binding.etMessage.setText("")
         }
+        binding.tvNewMessage.setOnClickListener {
+            reGetAllMessages()
+            binding.tvNewMessage.visibility = View.GONE
+        }
     }
 
     private fun changeChatViewState(viewState: ChatViewState) {
@@ -63,6 +70,10 @@ abstract class ChatBaseFragment : Fragment() {
             }
             is ChatViewState.SuccessGetMessages -> {
                 binding.progressBar.visibility = View.GONE
+                val lastId = viewState.messageListPageEntity.messageList.firstOrNull()?.id ?: 0
+                if (lastId > currLastId) {
+                    currLastId = lastId.toLong()
+                }
                 viewModel.updateRecycleList(
                     oldList = chatAdapter.currentList,
                     newList = viewState.messageListPageEntity.messageList.map(messageEntityToItem)
@@ -70,13 +81,30 @@ abstract class ChatBaseFragment : Fragment() {
             }
             is ChatViewState.SuccessUpdateList -> {
                 updateMessage(viewState.newList)
+                if (isFirst) {
+                    isFirst = false
+                    viewModel.initCheck()
+                }
             }
             ChatViewState.SuccessSendMessage -> {
-                scrollListener.numberOfPage = 1
-                chatAdapter.submitList(emptyList())
-                viewModel.doGetMessages(size = PagingScrollListener.PAGE_SIZE, page = FIRST_PAGE)
+                reGetAllMessages()
+            }
+            is ChatViewState.ErrorUpdate -> {
+                showToast(viewState.throwable.message)
+            }
+            is ChatViewState.SuccessUpdate -> {
+                Log.d("UpdateMessage", "Success updated")
+                if (currLastId < viewState.id) {
+                    binding.tvNewMessage.visibility = View.VISIBLE
+                }
             }
         }
+    }
+
+    private fun reGetAllMessages() {
+        scrollListener.numberOfPage = 1
+        chatAdapter.submitList(emptyList())
+        viewModel.doGetMessages(size = PagingScrollListener.PAGE_SIZE, page = FIRST_PAGE)
     }
 
     private fun initViews() {

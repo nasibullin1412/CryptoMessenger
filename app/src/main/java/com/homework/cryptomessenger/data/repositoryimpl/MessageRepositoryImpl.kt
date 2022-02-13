@@ -6,10 +6,10 @@ import com.homework.cryptomessenger.data.network.NetworkConstants.PAGING_SORT_TY
 import com.homework.cryptomessenger.data.network.mappers.MessageDtoToEntity
 import com.homework.cryptomessenger.data.network.mappers.MessageEntityToBody
 import com.homework.cryptomessenger.data.network.mappers.MessageResponseToEntity
+import com.homework.cryptomessenger.domain.BaseDataSource
 import com.homework.cryptomessenger.domain.entity.MessageEntity
 import com.homework.cryptomessenger.domain.entity.MessageListPageEntity
 import com.homework.cryptomessenger.domain.repository.MessageRepository
-import com.homework.cryptomessenger.domain.BaseDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -44,6 +44,20 @@ class MessageRepositoryImpl : BaseDataSource(), MessageRepository {
         }
         if (result.data != null) {
             emit(messageDtoToEntity(result.data))
+        } else {
+            throw IOException(result.message)
+        }
+    }.flowOn(Dispatchers.IO)
+
+    override suspend fun updateMessage(): Flow<Long> = flow {
+        val queryMap = mapOf(
+            "size" to "1",
+            "page" to "0",
+            "sort" to PAGING_SORT_TYPE
+        )
+        val result = safeApiCall { apiService.getMessages(queryMap) }
+        if (result.data != null) {
+            emit(result.data.content.last().id.toLong())
         } else {
             throw IOException(result.message)
         }
