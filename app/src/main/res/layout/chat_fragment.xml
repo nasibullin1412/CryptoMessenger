@@ -47,7 +47,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <TextView
-        android:id="@+id/tvTopicName"
+        android:id="@+id/tvNewMessage"
         android:layout_width="match_parent"
         android:layout_height="@dimen/topic_name_view_height"
         android:background="@color/send_box_color"
@@ -56,8 +56,8 @@
         android:textColor="@color/topic_name_color"
         android:textSize="@dimen/topic_name_text_size"
         android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@+id/appBar"
-        tools:text="Topic: #testing" />
+        android:text="@string/new_message"
+        app:layout_constraintTop_toBottomOf="@+id/appBar" />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -77,7 +77,7 @@
         app:layout_constraintBottom_toTopOf="@id/clSendBox"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvTopicName"
+        app:layout_constraintTop_toBottomOf="@id/tvNewMessage"
         app:layout_constraintVertical_bias="1" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
