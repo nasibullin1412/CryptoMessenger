@@ -13,7 +13,6 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import java.util.concurrent.TimeUnit
 
-
 fun Retrofit.Builder.setClient() = apply {
     val okHttpClient = OkHttpClient.Builder()
         .addQueryInterceptor()
