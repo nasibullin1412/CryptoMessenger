@@ -60,7 +60,5 @@ class KeyExchangeApi {
     companion object {
         const val SALT = "secret"
         const val MAC_ALGORITHM = "HMACSHA256"
-
-
     }
 }

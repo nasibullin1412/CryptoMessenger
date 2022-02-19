@@ -8,9 +8,9 @@ import com.homework.cryptomessenger.data.prefs.SharedPrefs
 import com.homework.cryptomessenger.data.prefs.SharedPrefs.CURR_USER_ID
 import com.homework.cryptomessenger.data.prefs.SharedPrefs.SESSION_KEY
 import com.homework.cryptomessenger.data.prefs.SharedPrefs.TOKEN_KEY
+import com.homework.cryptomessenger.domain.BaseDataSource
 import com.homework.cryptomessenger.domain.entity.AuthEntity
 import com.homework.cryptomessenger.domain.repository.AuthRepository
-import com.homework.cryptomessenger.domain.BaseDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
